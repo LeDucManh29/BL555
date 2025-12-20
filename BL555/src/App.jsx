@@ -1,8 +1,9 @@
 import "./App.css";
+import Login from "./login";
 import Register from "./register";
 
 function App() {
-  return <Register />;
+  return <Login />;
 }
 
 export default App;
