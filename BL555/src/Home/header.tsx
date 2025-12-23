@@ -1,5 +1,6 @@
 import { Crown, Smartphone } from "lucide-react";
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import {
   Home,
   Dices,
@@ -14,7 +15,12 @@ import {
   Video,
 } from "lucide-react";
 
-const Header = () => {
+interface HeaderProps {
+  onLoginClick?: () => void;
+  onRegisterClick?: () => void;
+}
+
+const Header: React.FC<HeaderProps> = ({ onLoginClick, onRegisterClick }) => {
   const [isLangOpen, setIsLangOpen] = useState(false);
 
   return (
@@ -33,7 +39,10 @@ const Header = () => {
             <div className="flex items-center gap-4">
               {/* Nút Đăng ký (Register) với Badge +58K */}
               <div className="relative group">
-                <button className="flex items-center justify-center whitespace-nowrap transition-all duration-200 px-[10px] py-[8.5px] min-w-[157px] h-[36px] text-[16px] font-bold text-[#337b9d] bg-gradient-to-r from-[#fff] via-[#cbf1ff] to-[#fff] border border-[#9fdff6] rounded-full hover:brightness-110">
+                <button 
+                  onClick={onRegisterClick}
+                  className="flex items-center justify-center whitespace-nowrap transition-all duration-200 px-[10px] py-[8.5px] min-w-[157px] h-[36px] text-[16px] font-bold text-[#337b9d] bg-gradient-to-r from-[#fff] via-[#cbf1ff] to-[#fff] border border-[#9fdff6] rounded-full hover:brightness-110"
+                >
                   Đăng ký
                 </button>
                 {/* Bonus Tip Badge */}
@@ -45,7 +54,10 @@ const Header = () => {
               </div>
 
               {/* Nút Đăng nhập (Login) */}
-              <button className="flex items-center justify-center whitespace-nowrap transition-all duration-200 px-[10px] py-[8.5px] min-w-[157px] h-[36px] text-[16px] font-bold text-white bg-gradient-to-b from-[#9fdff6] to-[#2e8daf] rounded-full hover:brightness-110 shadow-md">
+              <button 
+                onClick={onLoginClick}
+                className="flex items-center justify-center whitespace-nowrap transition-all duration-200 px-[10px] py-[8.5px] min-w-[157px] h-[36px] text-[16px] font-bold text-white bg-gradient-to-b from-[#9fdff6] to-[#2e8daf] rounded-full hover:brightness-110 shadow-md"
+              >
                 Đăng nhập
               </button>
 
@@ -128,8 +140,10 @@ const Header = () => {
         <div className="w-[1200px] h-full mr-28">
           <ul className="flex justify-between items-center h-full text-white font-normal text-[16px]">
             <li className="px-3 py-2 hover:bg-sky-200/50 hover:text-[#113565] transition-all cursor-pointer border-b-4 border-transparent hover:border-[#113565] h-full flex items-center gap-2 whitespace-nowrap">
-              <Home className="w-5 h-5" />
-              TRANG CHỦ
+              <Link to="/" className="flex items-center gap-2">
+                <Home className="w-5 h-5" />
+                TRANG CHỦ
+              </Link>
             </li>
             <li className="px-3 py-2 hover:bg-sky-200/50 hover:text-[#113565] transition-all cursor-pointer border-b-4 border-transparent hover:border-[#113565] h-full flex items-center gap-2 whitespace-nowrap">
               <Dices className="w-5 h-5" />

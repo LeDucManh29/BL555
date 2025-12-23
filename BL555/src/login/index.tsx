@@ -1,13 +1,28 @@
 import React, { useState } from "react";
 import { X, User, Lock, RefreshCw, Eye, EyeOff } from "lucide-react";
+import { Link, useNavigate } from "react-router-dom";
 
-const Login = () => {
+interface LoginProps {
+  onClose?: () => void;
+  onSwitchToRegister?: () => void;
+}
+
+const Login: React.FC<LoginProps> = ({ onClose, onSwitchToRegister }) => {
+  const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
   const [captcha, setCaptcha] = useState("4151");
 
   const generateCaptcha = () => {
     const num = Math.floor(1000 + Math.random() * 9000);
     setCaptcha(num.toString());
+  };
+
+  const handleClose = () => {
+    if (onClose) {
+      onClose();
+    } else {
+      navigate("/");
+    }
   };
 
   return (
@@ -17,7 +32,7 @@ const Login = () => {
         <div className="bg-gradient-to-r from-white via-[#cbf1ff] to-white py-4 px-2 relative border-b border-none flex flex-col items-center">
           <button
             className="absolute top-4 right-4 w-8 h-8 rounded-full bg-[#5dbedb] hover:bg-[#4a9bb5] flex items-center justify-center transition-all duration-200 shadow-md"
-            onClick={() => console.log("Close")}
+            onClick={handleClose}
           >
             <X className="w-5 h-5 text-white stroke-[2.5]" />
           </button>
@@ -99,7 +114,10 @@ const Login = () => {
 
           {/* Nhóm Nút Đăng ký / Đăng nhập */}
           <div className="flex gap-5 mt-6">
-            <button className="flex-1 h-14 rounded-full border border-[#9fdff6] text-[#337b9d] font-bold text-lg bg-[linear-gradient(102deg,#fff_3.74%,#cbf1ff_51.87%,#fff)] shadow-md hover:brightness-105 active:scale-95 transition-all">
+            <button 
+              onClick={onSwitchToRegister || (() => navigate("/register"))}
+              className="flex-1 h-14 rounded-full border border-[#9fdff6] text-[#337b9d] font-bold text-lg bg-[linear-gradient(102deg,#fff_3.74%,#cbf1ff_51.87%,#fff)] shadow-md hover:brightness-105 active:scale-95 transition-all flex items-center justify-center"
+            >
               Đăng ký
             </button>
             <button className="flex-1 h-14 rounded-full text-white font-bold text-lg bg-gradient-to-b from-[#9fdff6] to-[#2e8daf] shadow-[0_4px_8px_rgba(0,0,0,0.2)] hover:brightness-110 active:scale-95 transition-all">

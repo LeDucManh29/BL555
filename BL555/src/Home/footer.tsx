@@ -155,7 +155,7 @@ const Footer = () => {
           </div>
         </div>
       </div>
-      <div className="w-full bg-[#e6f7ff] pt-5 flex justify-center border-t border-white/30">
+      <div className="w-full bg-[#DEF6FF] pt-5 flex justify-center border-t border-white/30">
         <div className="w-full max-w-[1200px] px-4 text-left">
           {/* --- Hàng 1: Giấy phép, Bảo vệ, Theo dõi, Trách nhiệm --- */}
           <div className="grid grid-cols-4 gap-0 mb-12 items-start">
@@ -233,7 +233,7 @@ const Footer = () => {
         </div>
       </div>
       {/* --- KHỐI DƯỚI: MARQUEE LOGO ĐỐI TÁC 2 HÀNG --- */}
-      <div className="w-full bg-[#e6f7ff] pb-1 flex justify-center">
+      <div className="w-full bg-[#DEF6FF] pb-1 flex justify-center">
         <div className="w-full max-w-[1200px] px-4 mx-auto">
           <style>{`
       .marquee-container {

@@ -1,7 +1,14 @@
 import React, { useState } from "react";
 import { X, User, Lock, Phone, RefreshCw, Eye, EyeOff } from "lucide-react";
+import { Link, useNavigate } from "react-router-dom";
 
-export default function Register() {
+interface RegisterProps {
+  onClose?: () => void;
+  onSwitchToLogin?: () => void;
+}
+
+export default function Register({ onClose, onSwitchToLogin }: RegisterProps) {
+  const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [agreed, setAgreed] = useState(false);
@@ -24,14 +31,22 @@ export default function Register() {
     console.log("Form submitted:", formData);
   };
 
+  const handleClose = () => {
+    if (onClose) {
+      onClose();
+    } else {
+      navigate("/");
+    }
+  };
+
   return (
-    <div className="fixed inset-0 bg-black/60 flex items-center justify-center p-4 z-50 animate-in fade-in duration-300">
+    <div className="fixed inset-0 bg-black/60 flex items-center justify-center p-4 z-1000 animate-in fade-in duration-300">
       <div className="bg-white rounded-[30px] shadow-2xl w-full max-w-[818px] max-h-[90vh] overflow-hidden flex flex-col border border-[#9fdff6] animate-in zoom-in-95 duration-300">
         {/* Header */}
         <div className="bg-gradient-to-r from-white via-[#cbf1ff] to-white p-6 relative border-b border-none flex flex-col items-center">
           <button
             className="absolute top-4 right-4 w-8 h-8 rounded-full bg-[#5dbedb] hover:bg-[#4a9bb5] flex items-center justify-center transition-all duration-200 shadow-md"
-            onClick={() => console.log("Close")}
+            onClick={handleClose}
           >
             <X className="w-5 h-5 text-white stroke-[2.5]" />
           </button>
@@ -353,9 +368,12 @@ export default function Register() {
 
           <p className="text-center mt-6 text-[#337b9d]">
             Quý khách đã có tài khoản{" "}
-            <span className="text-[#2e8daf] ml-2 cursor-pointer hover:underline">
+            <button 
+              onClick={onSwitchToLogin || (() => navigate("/login"))}
+              className="text-[#2e8daf] ml-2 cursor-pointer hover:underline bg-transparent border-0 p-0 font-inherit"
+            >
               Đăng nhập
-            </span>
+            </button>
           </p>
         </div>
       </div>
