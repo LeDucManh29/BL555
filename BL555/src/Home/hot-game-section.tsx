@@ -2,7 +2,7 @@ import React from "react";
 
 const HotGamesSection = () => {
   return (
-    <section className="w-full py-6 px-4">
+    <section className="w-full py-6 px-4 hot-games-section-responsive">
       <div className="max-w-[1400px] mx-auto">
         {/* Header Title */}
         <div className="flex justify-center mb-3">
@@ -23,7 +23,7 @@ const HotGamesSection = () => {
         >
           {/* Background Image */}
           <img
-            src="/src/assets/jackpot-bg.017725e.png"
+            src="/assets/jackpot-bg.017725e.png"
             alt="Jackpot Background"
             className="absolute inset-0 w-full h-full object-cover"
           />
@@ -31,11 +31,9 @@ const HotGamesSection = () => {
           {/* Content Grid - Logo & Video on top of background */}
           <div className="absolute inset-0 grid grid-cols-1 lg:grid-cols-2 gap-4 p-6 lg:p-8">
             {/* Left Side - Jackpot Logo */}
-            <div
-              className="flex items-center justify-center lg:justify-start mr-8"
-            >
+            <div className="flex items-center justify-center lg:justify-start mr-8">
               <img
-                src="/src/assets/jackpot-main.5f8a4b1.png"
+                src="/assets/jackpot-main.5f8a4b1.png"
                 alt="Super Win Jackpot"
                 className="w-full max-w-[100%] lg:max-w-[100%] h-auto object-contain"
               />
@@ -53,7 +51,7 @@ const HotGamesSection = () => {
                   preload="metadata"
                   style={{ aspectRatio: "18/10" }}
                 >
-                  <source src="/public/video/bl555.mp4" type="video/mp4" />
+                  <source src="/video/bl555.mp4" type="video/mp4" />
                   Your browser does not support the video tag.
                 </video>
               </div>
@@ -61,6 +59,13 @@ const HotGamesSection = () => {
           </div>
         </div>
       </div>
+      <style>{`
+        @media (max-width: 640px) {
+          .hot-games-section-responsive {
+            display: none !important;
+          }
+        }
+      `}</style>
     </section>
   );
 };

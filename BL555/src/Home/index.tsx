@@ -14,6 +14,8 @@ import PopupSlideshow from "./popup-slideshow"
 import FloatingGifts from "./floating-gifts "
 import Login from "../login"
 import Register from "../register"
+import CategoryMobile from "./category-mobile"
+import MobileBottomNav from "./mobile-bottom-nav"
 
 
 const Home = () => {
@@ -23,7 +25,7 @@ const Home = () => {
   return (
     <div className="app-wrapper">
       <div
-        className="main-content"
+        className="main-content pb-16 md:pb-0"
         style={{
           backgroundImage: 'url("https://www.36588555.com/res/img/common-bg.7899ecc.jpg")',
           backgroundSize: 'cover',
@@ -38,14 +40,16 @@ const Home = () => {
         />
         <Banner />
         <HotMatches />
+        <ContactMenu />
+        <CategoryMobile />
         <Features />
         <FeaturedProducts />
         <HotGamesSection />
         <GameCategory />
         <DownloadApp />
-        <ContactMenu />
         <PopupSlideshow />
         <FloatingGifts />
+        <MobileBottomNav />
         <Footer/>
       </div>
       

@@ -12,7 +12,7 @@ const FeaturedProducts = () => {
   ];
 
   return (
-    <section className="w-full py-12">
+    <section className="w-full py-12 featured-products-responsive">
       <div className="max-w-[1200px] mx-auto px-4">
         {/* Button Tiêu đề: Sản phẩm nổi bật */}
         <div className="flex justify-center mb-3">
@@ -29,83 +29,76 @@ const FeaturedProducts = () => {
         {/* Lưới ảnh Sản phẩm */}
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-5 auto-rows-fr ">
           {/* CASINO - Chiếm 2 cột */}
-          <div
-            className="col-span-2 relative overflow-hidden rounded-[20px] cursor-pointer transition-all duration-300"
-          >
+          <div className="col-span-2 relative overflow-hidden rounded-[20px] cursor-pointer transition-all duration-300">
             <img
-              src={`/src/assets/${products[0].img}`}
+              src={`/assets/${products[0].img}`}
               alt={products[0].name}
               className="w-full h-full object-cover block"
             />
           </div>
 
           {/* ĐÁ GÀ */}
-          <div
-            className="relative overflow-hidden rounded-[20px] cursor-pointer transition-all duration-300"
-          >
+          <div className="relative overflow-hidden rounded-[20px] cursor-pointer transition-all duration-300">
             <img
-              src={`/src/assets/${products[1].img}`}
+              src={`/assets/${products[1].img}`}
               alt={products[1].name}
               className="w-full h-full object-cover block"
             />
           </div>
 
           {/* NỔ HŨ */}
-          <div
-            className="relative overflow-hidden rounded-[20px] cursor-pointer transition-all duration-300"
-          >
+          <div className="relative overflow-hidden rounded-[20px] cursor-pointer transition-all duration-300">
             <img
-              src={`/src/assets/${products[2].img}`}
+              src={`/assets/${products[2].img}`}
               alt={products[2].name}
               className="w-full h-full object-cover block"
             />
           </div>
 
           {/* BẮN CÁ */}
-          <div
-            className="relative overflow-hidden rounded-[20px] cursor-pointer transition-all duration-300"
-          >
+          <div className="relative overflow-hidden rounded-[20px] cursor-pointer transition-all duration-300">
             <img
-              src={`/src/assets/${products[3].img}`}
+              src={`/assets/${products[3].img}`}
               alt={products[3].name}
               className="w-full h-full object-cover block"
             />
           </div>
 
           {/* GAME BÀI */}
-          <div
-            className="relative overflow-hidden rounded-[20px] cursor-pointer transition-all duration-300"
-          >
+          <div className="relative overflow-hidden rounded-[20px] cursor-pointer transition-all duration-300">
             <img
-              src={`/src/assets/${products[4].img}`}
+              src={`/assets/${products[4].img}`}
               alt={products[4].name}
               className="w-full h-full object-cover block"
             />
           </div>
 
           {/* THỂ THAO */}
-          <div
-            className="relative overflow-hidden rounded-[20px] cursor-pointer transition-all duration-300"
-          >
+          <div className="relative overflow-hidden rounded-[20px] cursor-pointer transition-all duration-300">
             <img
-              src={`/src/assets/${products[5].img}`}
+              src={`/assets/${products[5].img}`}
               alt={products[5].name}
               className="w-full h-full object-cover block"
             />
           </div>
 
           {/* XỔ SỐ */}
-          <div
-            className="relative overflow-hidden rounded-[20px] cursor-pointer transition-all duration-300"
-          >
+          <div className="relative overflow-hidden rounded-[20px] cursor-pointer transition-all duration-300">
             <img
-              src={`/src/assets/${products[6].img}`}
+              src={`/assets/${products[6].img}`}
               alt={products[6].name}
               className="w-full h-full object-cover block"
             />
           </div>
         </div>
       </div>
+      <style>{`
+        @media (max-width: 640px) {
+          .featured-products-responsive {
+            display: none !important;
+          }
+        }
+      `}</style>
     </section>
   );
 };

@@ -88,11 +88,17 @@ const Banner = () => {
             box-shadow: 0 0 8px rgba(251, 182, 206, 0.6) !important;
             align-items: center;
           }
+          /* Hide pagination bullets on mobile */
+          @media (max-width: 640px) {
+            .swiper-pagination {
+              display: none !important;
+            }
+          }
         `}</style>
       </div>
 
       {/* Announcements Slider */}
-      <div className="w-full bg-[#113565] py-2 shadow-lg overflow-hidden relative">
+      <div className="w-full bg-[#113565] py-2 shadow-lg overflow-hidden relative announcements-slider-responsive">
         {/* Gradient mask bên trái để ẩn text khi gần icon - mạnh hơn */}
         <div className="absolute left-0 top-0 bottom-0 w-20 bg-[#113565] to-transparent z-20 pointer-events-none"></div>
 
@@ -116,7 +122,10 @@ const Banner = () => {
                 key={idx}
                 className="text-white text-xs md:text-sm lg:text-base font-normal inline-block"
                 style={{
-                  marginRight: idx % announcements.length === announcements.length - 1 ? "100vw" : "60px",
+                  marginRight:
+                    idx % announcements.length === announcements.length - 1
+                      ? "100vw"
+                      : "60px",
                 }}
               >
                 {text}
@@ -140,6 +149,28 @@ const Banner = () => {
           }
           .animate-marquee:hover {
             animation-play-state: paused;
+          }
+          /* Responsive: Announcements Slider smaller on mobile */
+          @media (max-width: 640px) {
+            .announcements-slider-responsive {
+              padding-top: 0.25rem !important;
+              padding-bottom: 0.25rem !important;
+            }
+            .announcements-slider-responsive .text-xs,
+            .announcements-slider-responsive .md\:text-sm,
+            .announcements-slider-responsive .lg\:text-base {
+              font-size: 0.75rem !important;
+            }
+            .announcements-slider-responsive .w-6.h-6 {
+              width: 1.25rem !important;
+              height: 1.25rem !important;
+            }
+            .announcements-slider-responsive .left-8 {
+              left: 1rem !important;
+            }
+            .announcements-slider-responsive .w-20 {
+              width: 2.5rem !important;
+            }
           }
         `}</style>
       </div>

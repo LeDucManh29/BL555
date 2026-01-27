@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const Footer = () => {
+const FooterDesktop = () => {
   const [isExpanded, setIsExpanded] = useState(false);
 
   const sections = [
@@ -122,7 +122,7 @@ const Footer = () => {
           {/* --- KHỐI BÊN TRÁI: LOGO & GIỚI THIỆU --- */}
           <div className="max-w-[586px] flex flex-col gap-4">
             <img
-              src="/src/assets/logo.3f505b9.png"
+              src="/assets/logo.3f505b9.png"
               alt="BL555 Logo"
               className="w-[300px] h-auto drop-shadow-sm footer-logo"
             />
@@ -147,7 +147,7 @@ const Footer = () => {
             {/* Ảnh các icon thanh toán bạn đã cung cấp */}
             <div className="w-[320px] mt-2">
               <img
-                src="/src/assets//footer-img-3.9d877b6.png"
+                src="/assets//footer-img-3.9d877b6.png"
                 alt="Payment Methods"
                 className="w-full h-auto object-contain opacity-90"
               />
@@ -232,8 +232,8 @@ const Footer = () => {
           </div>
         </div>
       </div>
-      {/* --- KHỐI DƯỚI: MARQUEE LOGO ĐỐI TÁC 2 HÀNG --- */}
-      <div className="w-full bg-[#DEF6FF] pb-1 flex justify-center">
+      {/* --- KHỐI DƯỚI: MARQUEE LOGO ĐỐI TÁC 2 HÀNG (DESKTOP/TABLET) --- */}
+      <div className="w-full bg-[#DEF6FF] pb-1 flex justify-center hidden sm:flex">
         <div className="w-full max-w-[1200px] px-4 mx-auto">
           <style>{`
       .marquee-container {
@@ -282,7 +282,7 @@ const Footer = () => {
                   return duplicatedRow1.map((fileName, idx) => (
                     <div key={idx} className="logo-item">
                       <img
-                        src={`/src/assets/${fileName}`}
+                        src={`/assets/${fileName}`}
                         alt={fileName}
                         className="max-w-full max-h-full object-contain filter drop-shadow-sm"
                       />
@@ -303,7 +303,7 @@ const Footer = () => {
                   return duplicatedRow2.map((fileName, idx) => (
                     <div key={idx} className="logo-item">
                       <img
-                        src={`/src/assets/${fileName}`}
+                        src={`/assets/${fileName}`}
                         alt={fileName}
                         className="max-w-full max-h-full object-contain filter drop-shadow-sm"
                       />
@@ -317,6 +317,39 @@ const Footer = () => {
       </div>
     </footer>
   );
+};
+
+const FooterMobile: React.FC = () => {
+  return (
+    <footer className="w-full bg-[#DEF6FF] mt-8">
+      {/* --- KHỐI DƯỚI: ẢNH FOOTER CHO MOBILE --- */}
+      <div className="w-full bg-[#DEF6FF] pb-1 flex justify-center sm:hidden">
+        <img
+          src="/assets/footer_mobile.jpg"
+          alt="Footer Mobile"
+          className="w-full max-w-[480px] h-auto object-contain"
+        />
+      </div>
+    </footer>
+  );
+};
+
+// Wrapper footer: tự động chọn mobile/desktop
+import { useEffect } from "react";
+
+const useIsMobile = () => {
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 640);
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth < 640);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+  return isMobile;
+};
+
+const Footer: React.FC = (props) => {
+  const isMobile = useIsMobile();
+  return isMobile ? <FooterMobile {...props} /> : <FooterDesktop {...props} />;
 };
 
 export default Footer;

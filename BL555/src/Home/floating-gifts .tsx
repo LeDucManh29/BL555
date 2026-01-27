@@ -5,6 +5,7 @@ const FloatingGifts = () => {
   const [isVisible, setIsVisible] = useState(true);
   const [index, setIndex] = useState(0);
   const [transition, setTransition] = useState(true);
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
 
   const images = [
     "float-1.226dbb1.gif",
@@ -15,6 +16,15 @@ const FloatingGifts = () => {
   const slides = [...images, images[0]]; // clone ảnh đầu
   const SLIDE_TIME = 3000;
   const ANIM_TIME = 700;
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   useEffect(() => {
     if (!isVisible) return;
@@ -44,31 +54,32 @@ const FloatingGifts = () => {
   if (!isVisible) return null;
 
   return (
-    <div className="fixed bottom-18 right-6 z-50">
-      <div className="relative w-[100px] h-[100px] animate-float">
+    <div className="fixed bottom-30 right-2 md:bottom-18 md:right-6 z-50">
+      <div className="relative w-[70px] h-[70px] md:w-[100px] md:h-[100px] animate-float">
         {/* Close */}
         <button
           onClick={() => setIsVisible(false)}
-          className="absolute -top-2 -left-2 z-10 bg-[#6fc4dd] text-black rounded-full w-5 h-5 flex items-center justify-center shadow"
+          className="absolute -top-1 -left-1 md:-top-2 md:-left-2 z-10 bg-[#6fc4dd] text-black rounded-full w-4 h-4 md:w-5 md:h-5 flex items-center justify-center shadow"
         >
-          <X size={12} />
+          <X size={10} className="md:hidden" />
+          <X size={12} className="hidden md:block" />
         </button>
 
         {/* Slider */}
-        <div className="w-[100px] h-[100px] overflow-hidden">
+        <div className="w-[70px] h-[70px] md:w-[100px] md:h-[100px] overflow-hidden">
           <div
             className={`flex ${
               transition ? "transition-transform duration-700 ease-in-out" : ""
             }`}
             style={{
-              transform: `translateX(-${index * 100}px)`,
+              transform: `translateX(-${index * (isMobile ? 70 : 100)}px)`,
             }}
           >
             {slides.map((img, i) => (
               <img
                 key={i}
-                src={`/src/assets/${img}`}
-                className="w-[100px] h-[100px] object-contain flex-shrink-0"
+                src={`/assets/${img}`}
+                className="w-[70px] h-[70px] md:w-[100px] md:h-[100px] object-contain flex-shrink-0"
                 alt=""
               />
             ))}

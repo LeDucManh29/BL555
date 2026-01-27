@@ -1,5 +1,6 @@
 import { Crown, Smartphone } from "lucide-react";
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import {
   Home,
@@ -20,48 +21,53 @@ interface HeaderProps {
   onRegisterClick?: () => void;
 }
 
-const Header: React.FC<HeaderProps> = ({ onLoginClick, onRegisterClick }) => {
+// Desktop Header
+const HeaderDesktop: React.FC<HeaderProps> = ({
+  onLoginClick,
+  onRegisterClick,
+}) => {
   const [isLangOpen, setIsLangOpen] = useState(false);
+  const navigate = useNavigate();
+
+  const handleRegister = () => {
+    onRegisterClick ? onRegisterClick() : navigate("/register");
+  };
+  const handleLogin = () => {
+    onLoginClick ? onLoginClick() : navigate("/login");
+  };
 
   return (
-    <header className="relative z-[800] w-full select-none font-sans">
+    <header className="relative z-[800] w-full select-none font-sans hidden sm:block">
+      {/* ...existing code... */}
       {/* 1. Header Top: Chứa Khu vực Đăng nhập/Đăng ký */}
       <div
         className="flex justify-center h-[90px] border-b border-[#337b9d] bg-cover bg-center"
         style={{
-          backgroundImage: `url('https://www.36588555.com/res/img/header-bg.5235096.gif')`,
+          backgroundImage: `url('https://images.6223027.com/mcs-images/announcement/bl55vndkf5/1767876507674_PC.gif')`,
         }}
       >
         <div className="flex items-center justify-between w-[1200px] px-4">
-          {/* Khu vực bên phải: Login/Register & Sub-menu */}
           <div className="flex flex-col items-end gap-[10px] ml-auto">
-            {/* Hàng trên: Buttons & Language */}
             <div className="flex items-center gap-4">
-              {/* Nút Đăng ký (Register) với Badge +58K */}
               <div className="relative group">
-                <button 
-                  onClick={onRegisterClick}
+                <button
+                  onClick={handleRegister}
                   className="flex items-center justify-center whitespace-nowrap transition-all duration-200 px-[10px] py-[8.5px] min-w-[157px] h-[36px] text-[16px] font-bold text-[#337b9d] bg-gradient-to-r from-[#fff] via-[#cbf1ff] to-[#fff] border border-[#9fdff6] rounded-full hover:brightness-110"
                 >
                   Đăng ký
                 </button>
-                {/* Bonus Tip Badge */}
                 <div className="absolute -top-[5px] -right-[18px] flex items-center justify-center h-[22px] px-2 bg-gradient-to-b from-red-600 to-[#900] border border-[#ffdfdf] rounded-full shadow-lg">
                   <span className="text-[14px] font-black text-white shadow-sm">
                     +58K
                   </span>
                 </div>
               </div>
-
-              {/* Nút Đăng nhập (Login) */}
-              <button 
-                onClick={onLoginClick}
+              <button
+                onClick={handleLogin}
                 className="flex items-center justify-center whitespace-nowrap transition-all duration-200 px-[10px] py-[8.5px] min-w-[157px] h-[36px] text-[16px] font-bold text-white bg-gradient-to-b from-[#9fdff6] to-[#2e8daf] rounded-full hover:brightness-110 shadow-md"
               >
                 Đăng nhập
               </button>
-
-              {/* Bộ chọn ngôn ngữ */}
               <div
                 className="relative"
                 onMouseEnter={() => setIsLangOpen(true)}
@@ -69,7 +75,7 @@ const Header: React.FC<HeaderProps> = ({ onLoginClick, onRegisterClick }) => {
               >
                 <div className="flex items-center gap-1 cursor-pointer">
                   <img
-                    src="src/assets/VN.svg"
+                    src="/assets/VN.svg"
                     alt="VN"
                     className="w-7 h-7 rounded-full object-cover"
                   />
@@ -89,18 +95,14 @@ const Header: React.FC<HeaderProps> = ({ onLoginClick, onRegisterClick }) => {
                     />
                   </svg>
                 </div>
-
-                {/* Khoảng cách invisible để nối trigger với popup */}
                 {isLangOpen && (
                   <div className="absolute top-full right-0 w-[220px] h-[5px]" />
                 )}
-
-                {/* Dropdown Ngôn ngữ (Dựa trên class .option_list) */}
                 {isLangOpen && (
                   <ul className="absolute top-[calc(100%+5px)] right-0 z-[1000] flex flex-col w-[220px] bg-white rounded-[10px] shadow-[inset_0_-3.55px_4.733px_0_rgba(0,0,0,0.25)] overflow-hidden">
                     <li className="flex items-center gap-4 h-[60px] px-4 text-[#337b9d] font-bold hover:bg-gray-100 cursor-pointer">
                       <img
-                        src="src/assets/VN.svg"
+                        src="/assets/VN.svg"
                         className="w-8 h-8 rounded-full object-cover"
                         alt="VN"
                       />
@@ -108,7 +110,7 @@ const Header: React.FC<HeaderProps> = ({ onLoginClick, onRegisterClick }) => {
                     </li>
                     <li className="flex items-center gap-4 h-[60px] px-4 text-[#337b9d] font-bold hover:bg-gray-100 cursor-pointer">
                       <img
-                        src="src/assets/US.svg"
+                        src="/assets/US.svg"
                         className="w-8 h-8 rounded-full object-cover"
                         alt="EN"
                       />
@@ -118,8 +120,6 @@ const Header: React.FC<HeaderProps> = ({ onLoginClick, onRegisterClick }) => {
                 )}
               </div>
             </div>
-
-            {/* Hàng dưới: Links phụ */}
             <div className="flex gap-4 text-[17px] font-normal text-[#d1b441]">
               <span className="hover:text-white cursor-pointer transition-colors">
                 Giới thiệu bạn nhận thưởng
@@ -134,8 +134,6 @@ const Header: React.FC<HeaderProps> = ({ onLoginClick, onRegisterClick }) => {
           </div>
         </div>
       </div>
-
-      {/* 2. Header Bottom: Thanh điều hướng Trò chơi (Dựa trên class .header_bottom) */}
       <nav className="h-[56px] bg-gradient-to-r from-white via-[#4b9bb6] to-white flex justify-center">
         <div className="w-[1200px] h-full mr-28">
           <ul className="flex justify-between items-center h-full text-white font-normal text-[16px]">
@@ -191,6 +189,62 @@ const Header: React.FC<HeaderProps> = ({ onLoginClick, onRegisterClick }) => {
         </div>
       </nav>
     </header>
+  );
+};
+
+// Mobile Header
+const HeaderMobile: React.FC<HeaderProps> = ({
+  onLoginClick,
+  onRegisterClick,
+}) => {
+  const navigate = useNavigate();
+  const handleRegister = () => {
+    onRegisterClick ? onRegisterClick() : navigate("/register");
+  };
+  const handleLogin = () => {
+    onLoginClick ? onLoginClick() : navigate("/login");
+  };
+  return (
+    <header className="w-full flex items-center h-20 sm:hidden">
+      <div
+        className="flex w-full h-full border-b border-[#337b9d] bg-cover items-center justify-between px-3"
+        style={{
+          backgroundImage: `url('/assets/header_mobile.jpg')`,
+          backgroundPosition: "0% center", // dịch sang trái
+        }}
+      >
+        <div />
+        <div className="flex items-center gap-2 ml-auto">
+          <div className="relative">
+            <button
+              onClick={handleRegister}
+              className="flex items-center justify-center whitespace-nowrap transition-all duration-200 px-[8px] py-[6px] min-w-[90px] h-[30px] text-[13px] font-bold text-[#337b9d] bg-gradient-to-r from-[#fff] via-[#cbf1ff] to-[#fff] border border-[#9fdff6] rounded-full hover:brightness-110"
+            >
+              Đăng ký
+            </button>
+            <span className="absolute -top-1.5 -right-1.5 bg-red-600 text-white text-[10px] font-bold rounded-full px-1.5 py-0.5">
+              +58K
+            </span>
+          </div>
+          <button
+            onClick={handleLogin}
+            className="flex items-center justify-center whitespace-nowrap transition-all duration-200 px-[8px] py-[6px] min-w-[90px] h-[30px] text-[13px] font-bold text-white bg-gradient-to-b from-[#9fdff6] to-[#2e8daf] rounded-full hover:brightness-110 shadow-md"
+          >
+            Đăng Nhập
+          </button>
+        </div>
+      </div>
+    </header>
+  );
+};
+
+// Wrapper Header: tự động chọn mobile/desktop
+const Header: React.FC<HeaderProps> = (props) => {
+  return (
+    <>
+      <HeaderMobile {...props} />
+      <HeaderDesktop {...props} />
+    </>
   );
 };
 

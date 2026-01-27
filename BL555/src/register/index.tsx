@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { X, User, Lock, Phone, RefreshCw, Eye, EyeOff } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 
@@ -22,6 +22,14 @@ export default function Register({ onClose, onSwitchToLogin }: RegisterProps) {
     captchaInput: "",
   });
 
+  // Disable body scroll when popup is open
+  useEffect(() => {
+    document.body.style.overflow = 'hidden';
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, []);
+
   const generateCaptcha = () => {
     const num = Math.floor(1000 + Math.random() * 9000);
     setCaptcha(num.toString());
@@ -40,37 +48,32 @@ export default function Register({ onClose, onSwitchToLogin }: RegisterProps) {
   };
 
   return (
-    <div className="fixed inset-0 bg-black/60 flex items-center justify-center p-4 z-1000 animate-in fade-in duration-300">
-      <div className="bg-white rounded-[30px] shadow-2xl w-full max-w-[818px] max-h-[90vh] overflow-hidden flex flex-col border border-[#9fdff6] animate-in zoom-in-95 duration-300">
+    <div className="fixed inset-0 bg-black/60 flex items-center justify-center sm:p-4 z-1000 animate-in fade-in duration-300 h-full w-full p-0">
+      <div className="bg-white w-full h-full sm:h-auto sm:w-full sm:max-w-[818px] sm:max-h-[90vh] overflow-hidden flex flex-col border border-[#9fdff6] animate-in zoom-in-95 duration-300 rounded-none sm:rounded-[30px] shadow-2xl">
         {/* Header */}
-        <div className="bg-gradient-to-r from-white via-[#cbf1ff] to-white p-6 relative border-b border-none flex flex-col items-center">
+        <div className="bg-gradient-to-r from-white via-[#cbf1ff] to-white p-4 sm:p-6 relative border-b border-none flex flex-col items-center">
           <button
-            className="absolute top-4 right-4 w-8 h-8 rounded-full bg-[#5dbedb] hover:bg-[#4a9bb5] flex items-center justify-center transition-all duration-200 shadow-md"
+            className="absolute top-2 right-2 w-7 h-7 sm:top-4 sm:right-4 sm:w-8 sm:h-8 rounded-full bg-[#5dbedb] hover:bg-[#4a9bb5] flex items-center justify-center transition-all duration-200 shadow-md"
             onClick={handleClose}
           >
-            <X className="w-5 h-5 text-white stroke-[2.5]" />
+            <X className="w-4 h-4 sm:w-5 sm:h-5 text-white stroke-[2.5]" />
           </button>
 
           <div className="mb-2 mt-2">
             <div className="flex items-center gap-3">
-              <img
-                src="/src/assets/logo.3f505b9.png"
-                alt="Logo"
-                className="h-17"
-              />
+              <img src="/assets/logo.3f505b9.png" alt="Logo" className="h-10 sm:h-17" />
             </div>
           </div>
 
-          <h2 className="text-[22px] font-bold text-[#337b9d] uppercase tracking-wide">
-            Chinh phục đỉnh cao-Vươn tầm thế giới
+          <h2 className="text-[18px] sm:text-[22px] font-bold text-[#337b9d] uppercase tracking-wide text-center">
+            <span className="text-[13px] whitespace-nowrap sm:text-[22px] sm:whitespace-normal">Chinh phục đỉnh cao-Vươn tầm thế giới</span>
           </h2>
         </div>
 
         {/* Form Container với Custom Scrollbar */}
         <div
-          className="overflow-y-auto p-10 bg-white custom-scrollbar"
+          className="overflow-y-auto px-8 py-6 sm:px-10 py-0 sm:py-10 bg-white custom-scrollbar"
           style={{
-            /* Tích hợp trực tiếp style scrollbar nhỏ màu xanh từ CSS gốc */
             scrollbarWidth: "thin",
             scrollbarColor: "#337b9d transparent",
           }}
@@ -94,10 +97,10 @@ export default function Register({ onClose, onSwitchToLogin }: RegisterProps) {
             }}
           />
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-x-4 md:gap-x-10 gap-y-4">
             {/* Tên người dùng */}
             <div className="flex flex-col gap-2">
-              <label className="flex items-center gap-2 text-[#337b9d] font-bold text-[16px]">
+              <label className="flex items-center gap-2 text-[#337b9d] font-bold text-[15px] sm:text-[16px]">
                 <span className="text-red-500 text-3xl">★</span>
                 <User className="w-7 h-7 text-[#337b9d]" />
                 Tên người dùng
@@ -109,16 +112,16 @@ export default function Register({ onClose, onSwitchToLogin }: RegisterProps) {
                 onChange={(e) =>
                   setFormData({ ...formData, username: e.target.value })
                 }
-                className="w-full h-[46px] px-6 border border-[#9fdff6] rounded-full shadow-[0_4px_4px_0_rgba(0,0,0,0.25)] focus:ring-1 focus:ring-[#2e8daf] outline-none text-gray-700"
+                className="w-full h-[44px] sm:h-[46px] px-4 sm:px-6 border border-[#9fdff6] rounded-full shadow-[0_4px_4px_0_rgba(0,0,0,0.15)] focus:ring-1 focus:ring-[#2e8daf] outline-none text-gray-700 text-[15px]"
               />
-              <p className="text-[12px] text-[#a3a3a3] ">
+              <p className="text-[11px] sm:text-[12px] text-[#a3a3a3] ">
                 Từ 5-15 Kí Tự, Có Thể Gồm Cả Chữ Cái Hoặc Số
               </p>
             </div>
 
             {/* Tên thật */}
             <div className="flex flex-col gap-2">
-              <label className="flex items-center gap-2 text-[#337b9d] font-bold text-[16px]">
+              <label className="flex items-center gap-2 text-[#337b9d] font-bold text-[15px] sm:text-[16px]">
                 <span className="text-red-500 text-3xl">★</span>
                 <div className="w-7 h-7 border-2 border-[#337b9d] rounded flex items-center justify-center text-[#337b9d] font-bold text-sm">
                   i
@@ -135,9 +138,9 @@ export default function Register({ onClose, onSwitchToLogin }: RegisterProps) {
                   })
                 }
                 placeholder="Nhập Họ Và Tên Đầy Đủ"
-                className="w-full h-[46px] px-6 border border-[#9fdff6] rounded-full shadow-[0_4px_4px_0_rgba(0,0,0,0.25)] outline-none text-gray-700"
+                className="w-full h-[44px] sm:h-[46px] px-4 sm:px-6 border border-[#9fdff6] rounded-full shadow-[0_4px_4px_0_rgba(0,0,0,0.15)] outline-none text-gray-700 text-[15px]"
               />
-              <p className="text-[12px] text-[#a3a3a3]">
+              <p className="text-[11px] sm:text-[12px] text-[#a3a3a3]">
                 Nhập Họ Và Tên Đầy Đủ, Chữ In Hoa Không Dấu. Ví Dụ: PHAN DANG
                 NHAN
               </p>
@@ -145,7 +148,7 @@ export default function Register({ onClose, onSwitchToLogin }: RegisterProps) {
 
             {/* Mật khẩu */}
             <div className="flex flex-col gap-2">
-              <label className="flex items-center gap-2 text-[#337b9d] font-bold text-[16px]">
+              <label className="flex items-center gap-2 text-[#337b9d] font-bold text-[15px] sm:text-[16px]">
                 <span className="text-red-500 text-3xl">★</span>
                 <Lock className="w-7 h-7 text-[#337b9d]" />
                 Mật khẩu
@@ -158,7 +161,7 @@ export default function Register({ onClose, onSwitchToLogin }: RegisterProps) {
                   onChange={(e) =>
                     setFormData({ ...formData, password: e.target.value })
                   }
-                  className="w-full h-[46px] px-6 border border-[#9fdff6] rounded-full shadow-[0_4px_4px_0_rgba(0,0,0,0.25)] outline-none text-gray-700"
+                  className="w-full h-[44px] sm:h-[46px] px-4 sm:px-6 border border-[#9fdff6] rounded-full shadow-[0_4px_4px_0_rgba(0,0,0,0.15)] outline-none text-gray-700 text-[15px]"
                 />
                 <button
                   type="button"
@@ -168,14 +171,14 @@ export default function Register({ onClose, onSwitchToLogin }: RegisterProps) {
                   {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
                 </button>
               </div>
-              <p className="text-[12px] text-[#a3a3a3]">
+              <p className="text-[11px] sm:text-[12px] text-[#a3a3a3]">
                 Hơn 6 Ký Tự, Phải Bao Gồm Chữ Cái Và Số
               </p>
             </div>
 
             {/* Xác nhận mật khẩu */}
             <div className="flex flex-col gap-2">
-              <label className="flex items-center gap-2 text-[#337b9d] font-bold text-[16px]">
+              <label className="flex items-center gap-2 text-[#337b9d] font-bold text-[15px] sm:text-[16px]">
                 <span className="text-red-500 text-3xl">★</span>
                 <Lock className="w-7 h-7 text-[#337b9d]" />
                 Xác nhận mật khẩu
@@ -191,7 +194,7 @@ export default function Register({ onClose, onSwitchToLogin }: RegisterProps) {
                       confirmPassword: e.target.value,
                     })
                   }
-                  className="w-full h-[46px] px-6 border border-[#9fdff6] rounded-full shadow-[0_4px_4px_0_rgba(0,0,0,0.25)] outline-none text-gray-700"
+                  className="w-full h-[44px] sm:h-[46px] px-4 sm:px-6 border border-[#9fdff6] rounded-full shadow-[0_4px_4px_0_rgba(0,0,0,0.15)] outline-none text-gray-700 text-[15px]"
                 />
                 <button
                   type="button"
@@ -205,14 +208,14 @@ export default function Register({ onClose, onSwitchToLogin }: RegisterProps) {
                   )}
                 </button>
               </div>
-              <p className="text-[12px] text-[#a3a3a3]">
+              <p className="text-[11px] sm:text-[12px] text-[#a3a3a3]">
                 Vui Lòng Xác Nhận Lại Mật Khẩu Của Bạn
               </p>
             </div>
 
             {/* Số điện thoại */}
             <div className="flex flex-col gap-2">
-              <label className="flex items-center gap-2 text-[#337b9d] font-bold text-[16px]">
+              <label className="flex items-center gap-2 text-[#337b9d] font-bold text-[15px] sm:text-[16px]">
                 <span className="text-red-500 text-3xl">★</span>
                 <Phone className="w-7 h-7 text-[#337b9d]" />
                 Số điện thoại
@@ -224,9 +227,9 @@ export default function Register({ onClose, onSwitchToLogin }: RegisterProps) {
                 onChange={(e) =>
                   setFormData({ ...formData, phone: e.target.value })
                 }
-                className="w-full h-[46px] px-6 border border-[#9fdff6] rounded-full shadow-[0_4px_4px_0_rgba(0,0,0,0.25)] outline-none text-gray-700"
+                className="w-full h-[44px] sm:h-[46px] px-4 sm:px-6 border border-[#9fdff6] rounded-full shadow-[0_4px_4px_0_rgba(0,0,0,0.15)] outline-none text-gray-700 text-[15px]"
               />
-              <p className="text-[12px] text-[#a3a3a3]">
+              <p className="text-[11px] sm:text-[12px] text-[#a3a3a3]">
                 SĐT Bắt Đầu Bằng Số 0. Ví Dụ: 0988889999. Nhập Chính Xác Số Điện
                 Thoại Để Tự Khôi Phục Lại Mật Khẩu Khi Bạn Quên Mật Khẩu
               </p>
@@ -234,7 +237,7 @@ export default function Register({ onClose, onSwitchToLogin }: RegisterProps) {
 
             {/* Mã xác minh (Captcha) */}
             <div className="flex flex-col gap-2">
-              <label className="flex items-center gap-2 text-[#337b9d] font-bold text-[16px]">
+              <label className="flex items-center gap-2 text-[#337b9d] font-bold text-[15px] sm:text-[16px]">
                 <span className="text-red-500 text-3xl">★</span>
                 <div className="w-7 h-7 border-2 border-[#337b9d] rounded-full flex items-center justify-center">
                   <RefreshCw className="w-5 h-5 text-[#337b9d]" />
@@ -249,10 +252,10 @@ export default function Register({ onClose, onSwitchToLogin }: RegisterProps) {
                   onChange={(e) =>
                     setFormData({ ...formData, captchaInput: e.target.value })
                   }
-                  className="w-full h-[46px] px-6 pr-32 border border-[#9fdff6] rounded-full shadow-[0_4px_4px_0_rgba(0,0,0,0.25)] outline-none text-gray-700"
+                  className="w-full h-[44px] sm:h-[46px] px-4 sm:px-6 pr-24 sm:pr-32 border border-[#9fdff6] rounded-full shadow-[0_4px_4px_0_rgba(0,0,0,0.15)] outline-none text-gray-700 text-[15px]"
                 />
-                <div className="absolute right-2 top-1/2 -translate-y-1/2 flex items-center bg-gray-50 rounded-full pr-2">
-                  <span className="px-3 py-1 font-mono text-xl font-black italic tracking-tighter text-blue-800 line-through decoration-red-600/50">
+                <div className="absolute right-2 top-1/2 -translate-y-1/2 flex items-center bg-gray-50 rounded-full pr-1 sm:pr-2">
+                  <span className="px-2 sm:px-3 py-1 font-mono text-lg sm:text-xl font-black italic tracking-tighter text-blue-800 line-through decoration-red-600/50">
                     {captcha}
                   </span>
                   <RefreshCw
@@ -261,13 +264,13 @@ export default function Register({ onClose, onSwitchToLogin }: RegisterProps) {
                   />
                 </div>
               </div>
-              <p className="text-[12px] text-[#a3a3a3]">
+              <p className="text-[11px] sm:text-[12px] text-[#a3a3a3]">
                 Vui lòng nhập mã xác minh
               </p>
             </div>
 
             {/* Điều khoản */}
-            <div className="md:col-span-2 flex items-start gap-2">
+            <div className="sm:col-span-2 flex items-start gap-2">
               <div
                 onClick={() => setAgreed(!agreed)}
                 className={`w-5 h-5 mt-2 border-2 border-[#2e8daf] rounded-sm flex items-center justify-center cursor-pointer transition ${
@@ -290,7 +293,7 @@ export default function Register({ onClose, onSwitchToLogin }: RegisterProps) {
                 )}
               </div>
 
-              <p className="text-[#2e8daf] text-sm">
+              <p className="text-[#2e8daf] text-xs sm:text-sm">
                 Tôi đã đủ 18 tuổi và đồng ý điều khoản
                 <span className="ml-2 cursor-pointer hover:underline">
                   {" "}
@@ -301,22 +304,10 @@ export default function Register({ onClose, onSwitchToLogin }: RegisterProps) {
             </div>
 
             {/* Nút Đăng Ký */}
-            <div className="md:col-span-2 flex justify-center mt-3">
+            <div className="sm:col-span-2 flex justify-center mt-3">
               <button
                 onClick={handleSubmit}
-                className="
-                  w-full
-                  h-[54px] 
-                  rounded-full
-                  bg-gradient-to-b from-[#9fdff6] to-[#2e8daf]
-                  text-white
-                  font-semibold
-                  text-base
-                  shadow-[0_4px_4px_0_rgba(0,0,0,0.25)]
-                  hover:brightness-110
-                  active:scale-[0.98]
-                  transition-all
-                "
+                className="w-full h-[48px] sm:h-[54px] rounded-full bg-gradient-to-b from-[#9fdff6] to-[#2e8daf] text-white font-semibold text-[16px] sm:text-base shadow-[0_4px_4px_0_rgba(0,0,0,0.15)] hover:brightness-110 active:scale-[0.98] transition-all"
               >
                 Đăng ký
               </button>
@@ -324,7 +315,7 @@ export default function Register({ onClose, onSwitchToLogin }: RegisterProps) {
           </div>
 
           {/* Social Login chuẩn CSS gốc */}
-          <div className="mt-8 grid grid-cols-2 gap-4">
+          <div className="mt-6 sm:mt-8 grid grid-cols-2 gap-2 sm:gap-4">
             <button
               className="
               flex items-center justify-center gap-4 
@@ -366,9 +357,9 @@ export default function Register({ onClose, onSwitchToLogin }: RegisterProps) {
             </button>
           </div>
 
-          <p className="text-center mt-6 text-[#337b9d]">
+          <p className="text-center mt-4 sm:mt-6 text-[#337b9d] text-sm sm:text-base">
             Quý khách đã có tài khoản{" "}
-            <button 
+            <button
               onClick={onSwitchToLogin || (() => navigate("/login"))}
               className="text-[#2e8daf] ml-2 cursor-pointer hover:underline bg-transparent border-0 p-0 font-inherit"
             >

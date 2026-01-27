@@ -8,22 +8,25 @@ const games = [
   { id: 5, image: "JL0033.png" },
   { id: 6, image: "MW0071.png" },
   { id: 7, image: "JDB131.png" },
+  { id: 8, image: "JDB069.png" },
 ];
 
 const GameCategory = () => {
   return (
-    <div className="py-5">
+    <div className="md:py-5">
       {/* Giữ layout chung */}
-      <div className="mx-auto max-w-[1200px]">
-        {/* List */}
-        <div className="flex items-center justify-between">
+      <div className="mx-auto max-w-[1200px] px-4">
+        {/* List - 4 cột trên mobile, 7 cột trên web */}
+        <div className="grid grid-cols-4 md:grid-cols-7 gap-1 md:gap-2">
           {games.map((game) => (
             <div
               key={game.id}
-              className="w-[150px] h-[150px] rounded-xl border border-blue-200 bg-white shadow-sm hover:shadow-md transition cursor-pointer flex items-center justify-center"
+              className={`aspect-square rounded-xl border border-blue-200 bg-white shadow-sm hover:shadow-md transition cursor-pointer flex items-center justify-center ${
+                game.id === 8 ? "md:hidden" : ""
+              }`}
             >
               <img
-                src={`/src/assets/${game.image}`}
+                src={`/assets/${game.image}`}
                 alt="game"
                 className="w-full h-full object-contain rounded-xl"
               />
@@ -32,7 +35,7 @@ const GameCategory = () => {
         </div>
 
         {/* Pagination dots */}
-        <div className="mt-4 flex justify-center items-center gap-4 cursor-pointer">
+        <div className="mt-4 hidden md:flex justify-center items-center gap-4 cursor-pointer">
           <span className="h-4 w-4 rounded-full bg-[#BDBDBD]"></span>
           <span className="h-3 w-3 rounded-full bg-blue-200"></span>
           <span className="h-3 w-3 rounded-full bg-blue-200"></span>

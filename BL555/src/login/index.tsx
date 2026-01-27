@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { X, User, Lock, RefreshCw, Eye, EyeOff } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 
@@ -11,6 +11,14 @@ const Login: React.FC<LoginProps> = ({ onClose, onSwitchToRegister }) => {
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
   const [captcha, setCaptcha] = useState("4151");
+
+  // Disable body scroll when popup is open
+  useEffect(() => {
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = "unset";
+    };
+  }, []);
 
   const generateCaptcha = () => {
     const num = Math.floor(1000 + Math.random() * 9000);
@@ -26,35 +34,34 @@ const Login: React.FC<LoginProps> = ({ onClose, onSwitchToRegister }) => {
   };
 
   return (
-    <div className="fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-[9999]">
+    <div className="fixed inset-0 md:bg-black/50 flex items-center justify-center md:p-4 z-2000 h-full w-full p-0">
       {/* Container chính */}
-      <div className="bg-white rounded-[30px] shadow-2xl w-full max-w-[510px] overflow-hidden flex flex-col border border-[#9fdff6] relative animate-in zoom-in-95 duration-300">
+      <div className="bg-white w-full h-full sm:mx-0 md:rounded-[30px] shadow-2xl md:max-w-xl md:h-auto overflow-y-auto md:overflow-hidden flex flex-col border-0 md:border md:border-[#9fdff6] relative md:animate-in md:zoom-in-95 duration-300">
         <div className="bg-gradient-to-r from-white via-[#cbf1ff] to-white py-4 px-2 relative border-b border-none flex flex-col items-center">
           <button
-            className="absolute top-4 right-4 w-8 h-8 rounded-full bg-[#5dbedb] hover:bg-[#4a9bb5] flex items-center justify-center transition-all duration-200 shadow-md"
+            className="absolute top-2 right-2 w-7 h-7 sm:top-4 sm:right-4 sm:w-8 sm:h-8 rounded-full bg-[#5dbedb] hover:bg-[#4a9bb5] flex items-center justify-center transition-all duration-200 shadow-md"
             onClick={handleClose}
           >
-            <X className="w-5 h-5 text-white stroke-[2.5]" />
+            <X className="w-4 h-4 sm:w-5 sm:h-5 text-white stroke-[2.5]" />
           </button>
 
           <div className="mb-2 mt-2">
             <div className="flex items-center gap-3">
               <img
-                src="/src/assets/logo.3f505b9.png"
+                src="/assets/logo.3f505b9.png"
                 alt="Logo"
-                className="h-17"
+                className="h-10 sm:h-17"
               />
             </div>
           </div>
 
-          <h2 className="text-[21px] font-bold text-[#337b9d] uppercase tracking-wide">
+          <h2 className="text-[13px] sm:text-[21px] font-bold text-[#337b9d] uppercase tracking-wide text-center leading-snug break-words whitespace-nowrap sm:whitespace-normal">
             Chinh phục đỉnh cao-Vươn tầm thế giới
           </h2>
         </div>
 
         {/* Form Body - Tích hợp custom scrollbar nhỏ màu xanh */}
-        <div className="px-11 py-8 bg-white max-h-[100vh]">
-
+        <div className="px-8 sm:px-11 py-8 bg-white max-h-screen">
           <div className="space-y-5 mt-4">
             {/* Ô nhập Tên người dùng */}
             <div className="relative group">
@@ -64,7 +71,7 @@ const Login: React.FC<LoginProps> = ({ onClose, onSwitchToRegister }) => {
               <input
                 type="text"
                 placeholder="Tên người dùng"
-                className="w-full h-[48px] pl-12 pr-4 border border-[#9fdff6] rounded-full shadow-[0_4px_4px_0_rgba(0,0,0,0.15)] outline-none text-[#337b9d]  placeholder-[#a3a3a3] transition-all focus:border-[#2e8daf]"
+                className="w-full h-12 pl-12 pr-4 border border-[#9fdff6] rounded-full shadow-[0_4px_4px_0_rgba(0,0,0,0.15)] outline-none text-[#337b9d]  placeholder-[#a3a3a3] transition-all focus:border-[#2e8daf]"
               />
             </div>
 
@@ -76,7 +83,7 @@ const Login: React.FC<LoginProps> = ({ onClose, onSwitchToRegister }) => {
               <input
                 type={showPassword ? "text" : "password"}
                 placeholder="Mật khẩu"
-                className="w-full h-[48px] pl-12 pr-12 border border-[#9fdff6] rounded-full shadow-[0_4px_4px_0_rgba(0,0,0,0.15)] outline-none text-[#337b9d] placeholder-[#a3a3a3] transition-all focus:border-[#2e8daf]"
+                className="w-full h-12 pl-12 pr-12 border border-[#9fdff6] rounded-full shadow-[0_4px_4px_0_rgba(0,0,0,0.15)] outline-none text-[#337b9d] placeholder-[#a3a3a3] transition-all focus:border-[#2e8daf]"
               />
               <button
                 onClick={() => setShowPassword(!showPassword)}
@@ -94,10 +101,10 @@ const Login: React.FC<LoginProps> = ({ onClose, onSwitchToRegister }) => {
               <input
                 type="text"
                 placeholder="Mã xác minh"
-                className="w-full h-[48px] pl-12 pr-32 border border-[#9fdff6] rounded-full shadow-[0_4px_4px_0_rgba(0,0,0,0.15)] outline-none text-[#337b9d] placeholder-[#a3a3a3] transition-all focus:border-[#2e8daf]"
+                className="w-full h-12 pl-12 pr-32 border border-[#9fdff6] rounded-full shadow-[0_4px_4px_0_rgba(0,0,0,0.15)] outline-none text-[#337b9d] placeholder-[#a3a3a3] transition-all focus:border-[#2e8daf]"
               />
               <div
-                className="absolute right-2 top-1/2 -translate-y-1/2 flex items-center bg-[#e0e0e0] rounded h-[34px] px-2 gap-1 cursor-pointer"
+                className="absolute right-2 top-1/2 -translate-y-1/2 flex items-center bg-[#e0e0e0] rounded h-8 px-2 gap-1 cursor-pointer"
                 onClick={generateCaptcha}
               >
                 <span className="font-mono text-lg font-bold italic tracking-wider text-[#415141] line-through decoration-black/30">
@@ -114,7 +121,7 @@ const Login: React.FC<LoginProps> = ({ onClose, onSwitchToRegister }) => {
 
           {/* Nhóm Nút Đăng ký / Đăng nhập */}
           <div className="flex gap-5 mt-6">
-            <button 
+            <button
               onClick={onSwitchToRegister || (() => navigate("/register"))}
               className="flex-1 h-14 rounded-full border border-[#9fdff6] text-[#337b9d] font-bold text-lg bg-[linear-gradient(102deg,#fff_3.74%,#cbf1ff_51.87%,#fff)] shadow-md hover:brightness-105 active:scale-95 transition-all flex items-center justify-center"
             >

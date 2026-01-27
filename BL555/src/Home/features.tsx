@@ -25,7 +25,7 @@ const Features = () => {
   ];
 
   return (
-    <div className="w-ful py-12 px-4 md:px-0">
+    <div className="w-ful py-12 px-4 md:px-0 features-responsive">
       <div className="max-w-[1200px] mx-auto">
         {/* Tiêu đề chính */}
         <div className="flex justify-center mb-12">
@@ -55,7 +55,7 @@ const Features = () => {
               {/* Icon */}
               <div className="w-16 h-16 flex-shrink-0 flex items-center justify-center">
                 <img
-                  src={`/src/assets/${item.icon}`}
+                  src={`/assets/${item.icon}`}
                   alt={item.title}
                   className="max-w-full max-h-full object-contain drop-shadow-md"
                 />
@@ -82,6 +82,13 @@ const Features = () => {
           ))}
         </div>
       </div>
+      <style>{`
+        @media (max-width: 640px) {
+          .features-responsive {
+            display: none !important;
+          }
+        }
+      `}</style>
     </div>
   );
 };
